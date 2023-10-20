@@ -19,7 +19,7 @@ for dag_name in dags:
         for option in options:
             # t = EmptyOperator(task_id=option)
             t = PythonOperator(
-                task_id=options,
+                task_id=option,
                 python_callable=lambda: time.sleep(randrange(10)),
                 # op_kwargs: Optional[Dict] = None,
                 # op_args: Optional[List] = None,
