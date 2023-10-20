@@ -1,13 +1,11 @@
-from airflow.decorators import DAG
+from airflow import DAG
 from airflow.operators.empty import EmptyOperator
 
 dags = ['A', 'B', 'C']
 for dag_name in dags:
-    with DAG(
-                dag_id=f"mult_dag_{dag_name}",
-                catchup=False,
-                schedule=None,
-                tags=["mult_dag", dag_name]
+    with DAG(dag_id=f"mult_dag_{dag_name}",
+            schedule="@daily",
+            tags=["mult_dag", dag_name]
     ) as dag:
         start = EmptyOperator(task_id="start")
         end = EmptyOperator(task_id="end")
