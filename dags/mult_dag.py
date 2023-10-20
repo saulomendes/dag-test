@@ -15,6 +15,6 @@ for dag_name in dags:
         options = ["branch_a", "branch_b", "branch_c", "branch_d"]
         for option in options:
             t = EmptyOperator(task_id=option)
-            start >> t >> last
+            start >> t >> end
 
 
