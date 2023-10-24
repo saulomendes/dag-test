@@ -7,9 +7,16 @@ from airflow.operators.python import PythonOperator
 from random import randrange
 
 dags = ['A', 'B', 'C']
+
+default_args = {
+    'start_date': airflow.utils.dates.days_ago(0),
+    'retries': 1,
+    'retry_delay': timedelta(minutes=5)
+}
+
 for dag_name in dags:
     with DAG(dag_id=f"mult_dag_{dag_name}",
-            start_date=datetime.datetime(2021, 1, 1),
+            default_args=default_args,
             schedule="@daily",
             tags=["mult_dag", dag_name]
     ) as dag:
