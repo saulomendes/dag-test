@@ -1,10 +1,12 @@
 import datetime
 import time
+import airflow
 
 from airflow import DAG
 from airflow.operators.empty import EmptyOperator
 from airflow.operators.python import PythonOperator
 from random import randrange
+from datetime import timedelta
 
 dags = ['A', 'B', 'C']
 
