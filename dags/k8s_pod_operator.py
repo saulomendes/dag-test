@@ -54,7 +54,7 @@ def pod_operator_hello():
         labels={"foo": "bar"},
         do_xcom_push=True,
         container_resources=k8s_models.V1ResourceRequirements(
-            limits={"memory": "250M", "cpu": "100m"},
+            limits={"memory": "100M", "cpu": "100m"},
         ),
     )
 
