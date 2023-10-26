@@ -1,17 +1,16 @@
-import datetime
 import time
-import airflow
+import pendulum
 
 from airflow import DAG
 from airflow.operators.empty import EmptyOperator
 from airflow.operators.python import PythonOperator
-from random import randrange
 from datetime import timedelta
+from random import randrange
 
 dags = ['A', 'B', 'C']
 
 default_args = {
-    'start_date': airflow.utils.dates.days_ago(0),
+    'start_date': pendulum.today('UTC').add(days=0),
     'retries': 1,
     'retry_delay': timedelta(minutes=5)
 }
