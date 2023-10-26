@@ -18,7 +18,4 @@ def generate_dag():
         do_xcom_push=True,
     )
 
-    # k.dry_run() 
-
-
-generate_dag()
+    k.dry_run() 
