@@ -25,24 +25,24 @@ def pod_operator_hello():
         # Entrypoint of the container, if not specified the Docker container's
         # entrypoint is used. The cmds parameter is templated.
         cmds=["echo"],
-        # The namespace to run within Kubernetes, default namespace is
-        # `default`. In Composer 1 there is the potential for
-        # the resource starvation of Airflow workers and scheduler
-        # within the Cloud Composer environment,
-        # the recommended solution is to increase the amount of nodes in order
-        # to satisfy the computing requirements. Alternatively, launching pods
-        # into a custom namespace will stop fighting over resources,
-        # and using Composer 2 will mean the environment will autoscale.
-        namespace="default",
+        # The namespace to run within Kubernetes. In Composer 2 environments
+        # after December 2022, the default namespace is
+        # `composer-user-workloads`.
+        namespace="composer-user-workloads",
         # Docker image specified. Defaults to hub.docker.com, but any fully
         # qualified URLs will point to a custom repository. Supports private
         # gcr.io images if the Composer Environment is under the same
         # project-id as the gcr.io images and the service account that Composer
         # uses has permission to access the Google Container Registry
         # (the default service account has permission)
-        image="gcr.io/gcp-runtimes/ubuntu_18_0_4",
+        image="gcr.io/gcp-runtimes/ubuntu_20_0_4",
+        # Specifies path to kubernetes config. If no config is specified will
+        # default to '~/.kube/config'. The config_file is templated.
+        config_file="/home/airflow/composer_kube_config",
+        # Identifier of connection that should be used
+        kubernetes_conn_id="kubernetes_default",
     )
-    
+
     pod = KubernetesPodOperator(
         task_id="dry_run_demo",
         name="hello-dry-run",
