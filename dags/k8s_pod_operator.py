@@ -79,6 +79,7 @@ def pod_operator_hello():
         bash_command="echo \"{{ task_instance.xcom_pull('write-xcom')[0] }}\"",
     )
 
+    write_xcom_async >> pod_task_xcom_result_async
 
 
 pod_operator_hello()
