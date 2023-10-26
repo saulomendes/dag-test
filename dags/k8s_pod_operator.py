@@ -1,9 +1,16 @@
 import datetime
+import pendulum
 
+from datetime import timedelta
 from airflow.decorators import dag
 from airflow.operators.empty import EmptyOperator
 from airflow.providers.cncf.kubernetes.operators.pod import KubernetesPodOperator
 
+default_args = {
+    'start_date': pendulum.today('UTC').add(days=0),
+    'retries': 1,
+    'retry_delay': timedelta(minutes=5)
+}
 
 @dag(start_date=datetime.datetime(2023, 10, 25), schedule="@daily")
 def generate_dag():
