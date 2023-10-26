@@ -12,17 +12,19 @@ default_args = {
     'retry_delay': timedelta(minutes=5)
 }
 
-@dag(start_date=datetime.datetime(2023, 10, 25), schedule="@daily")
-def generate_dag():
+@dag(default_args=default_args, schedule="@daily")
+def pod_operator_hello():
     # EmptyOperator(task_id="task")
-    k = KubernetesPodOperator(
+    pod = KubernetesPodOperator(
+        task_id="dry_run_demo",
         name="hello-dry-run",
         image="debian",
         cmds=["bash", "-cx"],
         arguments=["echo", "10"],
         labels={"foo": "bar"},
-        task_id="dry_run_demo",
         do_xcom_push=True,
     )
 
-    k.dry_run() 
+    pod.dry_run() 
+
+pod_operator_hello()
